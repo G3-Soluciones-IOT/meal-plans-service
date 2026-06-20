@@ -3,7 +3,6 @@ package pe.edu.upc.mealplan_service.mealplan.application.internal.queryservices;
 import org.springframework.stereotype.Service;
 import pe.edu.upc.mealplan_service.mealplan.application.internal.outboundservices.acl.ExternalMealPlanRecipeService;
 import pe.edu.upc.mealplan_service.mealplan.domain.model.aggregates.MealPlan;
-import pe.edu.upc.center.jameoFit.mealplan.domain.model.queries.*;
 import pe.edu.upc.mealplan_service.mealplan.domain.model.queries.*;
 import pe.edu.upc.mealplan_service.mealplan.domain.services.MealPlanQueryService;
 import pe.edu.upc.mealplan_service.mealplan.infrastructure.clients.resources.RecipeResource;

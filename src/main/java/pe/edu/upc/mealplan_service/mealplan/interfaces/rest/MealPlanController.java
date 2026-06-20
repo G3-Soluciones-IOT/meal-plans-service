@@ -10,7 +10,6 @@ import pe.edu.upc.mealplan_service.mealplan.domain.model.aggregates.MealPlan;
 import pe.edu.upc.mealplan_service.mealplan.domain.model.commands.CreateMealPlanCommand;
 import pe.edu.upc.mealplan_service.mealplan.domain.model.commands.DeleteMealPlanCommand;
 import pe.edu.upc.mealplan_service.mealplan.domain.model.commands.CreateMealPlanEntryCommand;
-import pe.edu.upc.center.jameoFit.mealplan.domain.model.queries.*;
 import pe.edu.upc.mealplan_service.mealplan.domain.model.queries.*;
 import pe.edu.upc.mealplan_service.mealplan.domain.services.MealPlanCommandService;
 import pe.edu.upc.mealplan_service.mealplan.domain.services.MealPlanEntryCommandService;

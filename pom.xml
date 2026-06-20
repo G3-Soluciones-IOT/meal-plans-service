@@ -12,7 +12,7 @@
         <relativePath/>
     </parent>
 
-    <groupId>pe.edu.upc.center.jameofit</groupId>
+    <groupId>pe.edu.upc</groupId>
     <artifactId>meal-plans-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
