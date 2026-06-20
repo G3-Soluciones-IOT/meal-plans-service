@@ -1,5 +1,6 @@
 package pe.edu.upc.mealplan_service.mealplan.application.internal.outboundservices.acl;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
@@ -15,7 +16,7 @@ public class ExternalTrackingService {
     private final RestClient restClient;
 
     public ExternalTrackingService(
-            RestClient.Builder restClientBuilder,
+            @Qualifier("loadBalancedRestClientBuilder") RestClient.Builder restClientBuilder,
             @Value("${services.tracking.base-url}") String trackingBaseUrl) {
         this.restClient = restClientBuilder.baseUrl(trackingBaseUrl).build();
     }

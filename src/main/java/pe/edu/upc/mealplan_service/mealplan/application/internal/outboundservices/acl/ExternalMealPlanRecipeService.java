@@ -1,5 +1,6 @@
 package pe.edu.upc.mealplan_service.mealplan.application.internal.outboundservices.acl;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
@@ -17,7 +18,7 @@ public class ExternalMealPlanRecipeService {
     private final RestClient restClient;
 
     public ExternalMealPlanRecipeService(
-            RestClient.Builder restClientBuilder,
+            @Qualifier("loadBalancedRestClientBuilder") RestClient.Builder restClientBuilder,
             @Value("${services.recipes.base-url}") String recipesBaseUrl) {
         this.restClient = restClientBuilder.baseUrl(recipesBaseUrl).build();
     }

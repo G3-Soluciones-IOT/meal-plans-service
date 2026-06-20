@@ -1,5 +1,6 @@
 package pe.edu.upc.mealplan_service.mealplan.application.internal.outboundservices.acl;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
@@ -12,7 +13,7 @@ public class ExternalProfileAndNutritionistService {
     private final RestClient nutritionistsClient;
 
     public ExternalProfileAndNutritionistService(
-            RestClient.Builder restClientBuilder,
+            @Qualifier("loadBalancedRestClientBuilder") RestClient.Builder restClientBuilder,
             @Value("${services.profiles.base-url}") String profilesBaseUrl,
             @Value("${services.nutritionists.base-url}") String nutritionistsBaseUrl) {
         this.profilesClient = restClientBuilder.baseUrl(profilesBaseUrl).build();
