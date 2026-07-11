@@ -21,13 +21,14 @@ public class ExternalProfileAndNutritionistService {
     }
 
     public void validateUserProfile(Long userId) {
-        if (!exists(profilesClient, "/api/v1/profiles/{userId}", userId)) {
+        if (!exists(profilesClient, "/api/v1/user-profiles/exists/by-user/{userId}", userId)
+                && !exists(profilesClient, "/api/v1/user-profiles/{profileId}", userId)) {
             throw new IllegalArgumentException("No regular user profile found with ID: " + userId);
         }
     }
 
     public void validateNutritionist(Long userId) {
-        if (!exists(nutritionistsClient, "/api/v1/nutritionists/users/{userId}", userId)) {
+        if (!existsNutritionistByUserId(userId)) {
             throw new IllegalArgumentException("No nutritionist found with userId: " + userId);
         }
     }
@@ -35,6 +36,21 @@ public class ExternalProfileAndNutritionistService {
     private boolean exists(RestClient client, String uri, Long id) {
         try {
             client.get().uri(uri, id).retrieve().toBodilessEntity();
+            return true;
+        } catch (RestClientException ex) {
+            return false;
+        }
+    }
+
+    private boolean existsNutritionistByUserId(Long userId) {
+        try {
+            nutritionistsClient.get()
+                    .uri(uriBuilder -> uriBuilder
+                            .path("/api/v1/nutritionists/by-user")
+                            .queryParam("userId", userId)
+                            .build())
+                    .retrieve()
+                    .toBodilessEntity();
             return true;
         } catch (RestClientException ex) {
             return false;

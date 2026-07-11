@@ -24,7 +24,7 @@ public class ExternalTrackingService {
     public Optional<TrackingResource> getTrackingByUserId(Long userId) {
         try {
             return Optional.ofNullable(restClient.get()
-                    .uri("/api/v1/tracking/users/{userId}", userId)
+                    .uri("/api/v1/tracking/user/{userId}", userId)
                     .retrieve()
                     .body(TrackingResource.class));
         } catch (RestClientException ex) {
@@ -34,7 +34,7 @@ public class ExternalTrackingService {
 
     public void addMealPlanEntryToTracking(TrackingMealPlanEntryRequest request) {
         restClient.post()
-                .uri("/api/v1/tracking/{trackingId}/meal-plan-entries", request.trackingId())
+                .uri("/api/v1/meal-plan-entries/{trackingId}", request.trackingId())
                 .body(request)
                 .retrieve()
                 .toBodilessEntity();
