@@ -11,7 +11,7 @@ public interface MealPlanRepository extends JpaRepository<MealPlan, Integer> {
 
     List<MealPlan> findAllByProfileId_UserProfileId(Integer userProfileId);
 
-    List<MealPlan> findAllByCreatedByNutritionistId(Integer nutritionistUserId);
+    List<MealPlan> findAllByCreatedByNutritionistId(Integer nutritionistId);
 
     List<MealPlan> findAllByCreatedByNutritionistIdIsNotNullAndProfileId_UserProfileIdIsNull();
 }

@@ -81,20 +81,20 @@ public class MealPlanController {
     // ------------------------------------------------------------
     // 2) NUTRICIONISTA CREA TEMPLATE
     // ------------------------------------------------------------
-    @PostMapping("/nutritionists/{nutritionistUserId}")
+    @PostMapping("/nutritionists/{nutritionistId}")
     @Operation(summary = "Nutritionist creates meal plan template")
     public ResponseEntity<MealPlanResource> createMealPlanForNutritionist(
-            @PathVariable Long nutritionistUserId,
+            @PathVariable Long nutritionistId,
             @RequestBody CreateMealPlanResource resource) {
 
-        externalService.validateNutritionist(nutritionistUserId);
+        externalService.validateNutritionist(nutritionistId);
 
         if (resource.profileId() != null && resource.profileId() > 0) {
             externalService.validateUserProfile(resource.profileId().longValue());
         }
 
         CreateMealPlanCommand command =
-                CreateMealPlanCommandFromResourceAssembler.toCommandFromResource(resource, nutritionistUserId);
+                CreateMealPlanCommandFromResourceAssembler.toCommandFromResource(resource, nutritionistId);
 
         var createdOpt = mealPlanCommandService.handle(command);
         if (createdOpt.isEmpty()) return ResponseEntity.badRequest().build();
@@ -111,18 +111,18 @@ public class MealPlanController {
     // ------------------------------------------------------------
     // 3) LIST ORIGINAL TEMPLATES BY NUTRITIONIST
     // ------------------------------------------------------------
-    @GetMapping("/nutritionists/{nutritionistUserId}")
+    @GetMapping("/nutritionists/{nutritionistId}")
     @Operation(summary = "List ORIGINAL templates created by nutritionist")
     public ResponseEntity<List<MealPlanResource>> getMealPlansByNutritionist(
-            @PathVariable Long nutritionistUserId) {
+            @PathVariable Long nutritionistId) {
 
-        externalService.validateNutritionist(nutritionistUserId);
+        externalService.validateNutritionist(nutritionistId);
 
         var mealPlans = mealPlanQueryService.handle(new GetAllMealPlanQuery())
                 .stream()
                 .filter(mp ->
                         mp.getCreatedByNutritionistId() != null &&
-                                Objects.equals(mp.getCreatedByNutritionistId().longValue(), nutritionistUserId) &&
+                                Objects.equals(mp.getCreatedByNutritionistId().longValue(), nutritionistId) &&
                                 mp.getProfileId() == null
                 )
                 .map(MealPlanResourceFromEntityAssembler::toResourceFromEntity)

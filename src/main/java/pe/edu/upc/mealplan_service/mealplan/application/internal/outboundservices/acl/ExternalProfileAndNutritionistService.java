@@ -27,9 +27,9 @@ public class ExternalProfileAndNutritionistService {
         }
     }
 
-    public void validateNutritionist(Long userId) {
-        if (!existsNutritionistByUserId(userId)) {
-            throw new IllegalArgumentException("No nutritionist found with userId: " + userId);
+    public void validateNutritionist(Long nutritionistId) {
+        if (!exists(nutritionistsClient, "/api/v1/nutritionists/{nutritionistId}", nutritionistId)) {
+            throw new IllegalArgumentException("No nutritionist found with id: " + nutritionistId);
         }
     }
 
@@ -42,18 +42,4 @@ public class ExternalProfileAndNutritionistService {
         }
     }
 
-    private boolean existsNutritionistByUserId(Long userId) {
-        try {
-            nutritionistsClient.get()
-                    .uri(uriBuilder -> uriBuilder
-                            .path("/api/v1/nutritionists/by-user")
-                            .queryParam("userId", userId)
-                            .build())
-                    .retrieve()
-                    .toBodilessEntity();
-            return true;
-        } catch (RestClientException ex) {
-            return false;
-        }
-    }
 }
